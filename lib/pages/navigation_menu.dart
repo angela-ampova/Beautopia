@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'salons_list.dart';
+import 'appointments.dart';
 
 class NavigationMenu extends StatelessWidget {
   @override
@@ -78,7 +79,10 @@ class NavigationMenu extends StatelessWidget {
               leading: Icon(Icons.calendar_today, color: Colors.deepOrange),
               title: Text('Appointments', style: TextStyle(color: Colors.white),),
               onTap: () {
-                // Navigate to appointments page
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AppointmentsPage()),
+                );
               },
             ),
             ListTile(
