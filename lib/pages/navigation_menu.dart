@@ -20,17 +20,32 @@ class NavigationMenu extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              margin: EdgeInsets.all(20.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                  icon: Icon(Icons.clear, color: Colors.deepOrange), // Set X icon with deepOrange color
+                  onPressed: () {
+                    Navigator.pop(context); // Pop the current route and return to the previous page
+                  },
+                ),
+              ],
+            ),
+            Divider(),
+            Padding(
+              padding: EdgeInsets.only(left: 16.0, top: 16.0),
+              child: CircleAvatar(
+                radius: 40.0,
+                backgroundImage: AssetImage('assets/profile_picture.png'),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 16.0, top: 8.0),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CircleAvatar(
-                    radius: 40.0,
-                    backgroundImage: AssetImage('assets/profile_picture.png'),
-                  ),
-                  SizedBox(height: 10.0),
                   Text(
-                    'Chloe225',
+                    'John Doe',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16.0,
@@ -38,7 +53,7 @@ class NavigationMenu extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'chloe@gmail.com',
+                    'johndoe@example.com',
                     style: TextStyle(
                       fontSize: 14.0,
                       color: Colors.white,
@@ -73,10 +88,12 @@ class NavigationMenu extends StatelessWidget {
                 // Navigate to profile page
               },
             ),
-            Spacer(),
             ListTile(
               leading: Icon(Icons.logout, color: Colors.deepOrange),
-              title: Text('Logout', style: TextStyle(color: Colors.white),),
+              title: Text(
+                'Logout',
+                style: TextStyle(color: Colors.white),
+              ),
               onTap: () {
                 // Perform logout action
               },
