@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'salons_list.dart';
 import 'appointments.dart';
+import 'profile.dart';
 
 class NavigationMenu extends StatelessWidget {
   @override
@@ -89,7 +90,10 @@ class NavigationMenu extends StatelessWidget {
               leading: Icon(Icons.person, color: Colors.deepOrange),
               title: Text('Profile', style: TextStyle(color: Colors.white),),
               onTap: () {
-                // Navigate to profile page
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProfilePage()),
+                );
               },
             ),
             ListTile(
