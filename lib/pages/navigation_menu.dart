@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'salons_list.dart';
 
 class NavigationMenu extends StatelessWidget {
   @override
@@ -61,58 +62,31 @@ class NavigationMenu extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 16.0),
-            Expanded(
-              child: ListView(
-                padding: EdgeInsets.symmetric(vertical: 10.0),
-                children: [
-                  ListTile(
-                    leading: Icon(Icons.home, color: Colors.deepOrange), // Set icon color to coral
-                    title: Row(
-                      children: [
-                        Text(
-                          'Beauty Salons',
-                          style: TextStyle(color: Colors.white), // Set text color to white
-                        ),
-                        Icon(Icons.arrow_forward_ios, color: Colors.white, size: 16.0), // Add arrow icon
-                      ],
-                    ),
-                    onTap: () {
-                      // Navigate to beauty salons page
-                    },
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.calendar_today, color: Colors.deepOrange),
-                    title: Row(
-                      children: [
-                        Text(
-                          'Appointments',
-                          style: TextStyle(color: Colors.white), // Set text color to white
-                        ),
-                        Icon(Icons.arrow_forward_ios, color: Colors.white, size: 16.0), // Add arrow icon
-                      ],
-                    ),
-                    onTap: () {
-                      // Navigate to appointments page
-                    },
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.person, color: Colors.deepOrange),
-                    title: Row(
-                      children: [
-                        Text(
-                          'Profile',
-                          style: TextStyle(color: Colors.white), // Set text color to white
-                        ),
-                        Icon(Icons.arrow_forward_ios, color: Colors.white, size: 16.0), // Add arrow icon
-                      ],
-                    ),
-                    onTap: () {
-                      // Navigate to profile page
-                    },
-                  ),
-                ],
-              ),
+            Divider(),
+            ListTile(
+              leading: Icon(Icons.home, color: Colors.deepOrange),
+              title: Text('Beauty Salons', style: TextStyle(color: Colors.white),),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SalonsListPage()), // Navigate to SalonsListPage
+                );
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.calendar_today, color: Colors.deepOrange),
+              title: Text('Appointments', style: TextStyle(color: Colors.white),),
+              onTap: () {
+                // Navigate to appointments page
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.person, color: Colors.deepOrange),
+              title: Text('Profile', style: TextStyle(color: Colors.white),),
+              onTap: () {
+                // Navigate to profile page
+              },
             ),
             ListTile(
               leading: Icon(Icons.logout, color: Colors.deepOrange),
