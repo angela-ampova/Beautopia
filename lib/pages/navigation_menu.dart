@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'salons_list.dart';
 
 class NavigationMenu extends StatelessWidget {
   @override
@@ -51,7 +52,11 @@ class NavigationMenu extends StatelessWidget {
               leading: Icon(Icons.home, color: Colors.deepOrange),
               title: Text('Beauty Salons', style: TextStyle(color: Colors.white),),
               onTap: () {
-                // Navigate to beauty salons page
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SalonsListPage()), // Navigate to SalonsListPage
+                );
               },
             ),
             ListTile(
