@@ -3,6 +3,8 @@ import 'package:latlong/latlong.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 
+import 'book.dart';
+
 class SalonDetailsPage extends StatelessWidget {
   final String salonName;
   final String salonImage;
@@ -98,7 +100,12 @@ class SalonDetailsPage extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.only(right: 20.0, bottom: 20.0),
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => BookPage()),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       primary: Colors.teal,
                       padding: EdgeInsets.symmetric(
