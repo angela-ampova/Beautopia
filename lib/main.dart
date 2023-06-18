@@ -1,3 +1,4 @@
+import 'package:beautopia_project/pages/book.dart';
 import 'package:flutter/material.dart';
 import 'pages/navigation_menu.dart';
 
@@ -89,7 +90,10 @@ class SalonCard extends StatelessWidget {
         subtitle: Text(description),
         trailing: ElevatedButton(
           onPressed: () {
-            // Perform booking action
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => BookPage()),
+            );
           },
           style: ElevatedButton.styleFrom(
             primary: Colors.teal, // Change the button background color
