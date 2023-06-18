@@ -1,4 +1,6 @@
+import 'package:beautopia_project/pages/salon_details.dart';
 import 'package:flutter/material.dart';
+import 'salon_details.dart';
 
 class SalonsListPage extends StatelessWidget {
   final List<String> salonNames = [
@@ -83,6 +85,14 @@ class SalonsListPage extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index) {
                   return ListTile(
                     title: Text(salonNames[index]),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SalonDetailsPage(salonName: "", salonImage: '', salonLocation: '',),
+                        ),
+                      );
+                    },
                   );
                 },
               ),
