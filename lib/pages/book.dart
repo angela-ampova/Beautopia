@@ -58,35 +58,55 @@ class _BookPageState extends State<BookPage> {
               ),
             ),
             // Logo and Name
-            Row(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(left: 20.0),
-                  child: Image.asset(
-                    'assets/logo.png',
-                    width: 100.0,
-                    height: 100.0,
-                  ),
+            Container(
+              alignment: Alignment.center,
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(left: 20.0),
+                      child: Image.asset(
+                        'assets/logo.png',
+                        width: 100.0,
+                        height: 100.0,
+                      ),
+                    ),
+                    SizedBox(width: 20.0),
+                    Text(
+                      'Salon Name',
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ],
                 ),
-                SizedBox(width: 20.0),
-                Text(
-                  'Salon Name',
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-              ],
+              ),
             ),
             SizedBox(height: 20.0),
+            // Select Service Label
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              child: Text(
+                'Select Service',
+                style: TextStyle(
+                  fontSize: 16.0,
+                  color: Colors.teal,
+                ),
+              ),
+            ),
+            SizedBox(height: 8.0),
             // Service Dropdown
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.0),
               child: DropdownButtonFormField<String>(
                 decoration: InputDecoration(
-                  labelText: 'Service',
-                  labelStyle: TextStyle(color: Colors.teal),
+                  hintText: 'Select',
+                  hintStyle: TextStyle(color: Colors.black),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.teal),
                   ),
@@ -112,14 +132,14 @@ class _BookPageState extends State<BookPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Date',
+                    'Select Date and Time',
                     style: TextStyle(
                       fontSize: 16.0,
                       color: Colors.teal,
                     ),
                   ),
                   SizedBox(height: 8.0),
-                  TextButton(
+                  TextButton.icon(
                     onPressed: () {
                       DatePicker.showDatePicker(
                         context,
@@ -133,7 +153,11 @@ class _BookPageState extends State<BookPage> {
                         locale: LocaleType.en,
                       );
                     },
-                    child: Text(
+                    icon: Icon(
+                      Icons.calendar_today,
+                      color: Colors.black,
+                    ),
+                    label: Text(
                       _selectedDate != null
                           ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
                           : 'Select Date',
@@ -144,15 +168,7 @@ class _BookPageState extends State<BookPage> {
                     ),
                   ),
                   SizedBox(height: 8.0),
-                  Text(
-                    'Time',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      color: Colors.teal,
-                    ),
-                  ),
-                  SizedBox(height: 8.0),
-                  TextButton(
+                  TextButton.icon(
                     onPressed: () {
                       DatePicker.showTimePicker(
                         context,
@@ -166,7 +182,11 @@ class _BookPageState extends State<BookPage> {
                         locale: LocaleType.en,
                       );
                     },
-                    child: Text(
+                    icon: Icon(
+                      Icons.access_time,
+                      color: Colors.black,
+                    ),
+                    label: Text(
                       _selectedTime != null
                           ? '${_selectedTime!.hour}:${_selectedTime!.minute}'
                           : 'Select Time',
@@ -194,7 +214,7 @@ class _BookPageState extends State<BookPage> {
                   ),
                 ),
                 child: Text(
-                  'Upload',
+                  'Upload an inspiration from device',
                   style: TextStyle(
                     fontSize: 16.0,
                   ),
@@ -205,12 +225,26 @@ class _BookPageState extends State<BookPage> {
             // Total Price
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.0),
-              child: Text(
-                'Total Price: \$50', // Replace with actual price value
-                style: TextStyle(
-                  fontSize: 16.0,
-                  color: Colors.teal,
-                ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Total Price',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      color: Colors.teal,
+                    ),
+                  ),
+                  SizedBox(height: 8.0),
+                  Text(
+                    '2000 MKD', // Replace with actual price value
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
               ),
             ),
             SizedBox(height: 20.0),

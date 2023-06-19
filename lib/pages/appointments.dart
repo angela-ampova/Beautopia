@@ -45,7 +45,7 @@ class AppointmentsPage extends StatelessWidget {
                       style: TextStyle(
                         color: Colors.teal,
                         fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                        fontSize: 15,
                         decoration: TextDecoration.underline,
                       ),
                     ),
@@ -54,10 +54,10 @@ class AppointmentsPage extends StatelessWidget {
                   ListTile(
                     leading: CircleAvatar(
                       radius: 30.0,
-                      backgroundImage: AssetImage('assets/salon_image.png'),
+                      backgroundImage: AssetImage('assets/sashions.png'),
                     ),
-                    title: Text('Beauty Salon 1'),
-                    subtitle: Text('Price: 500 MKD'),
+                    title: Text('Sashions'),
+                    subtitle: Text('2500 MKD'),
                   ),
                 ],
               ),
@@ -74,7 +74,7 @@ class AppointmentsPage extends StatelessWidget {
                       style: TextStyle(
                         color: Colors.teal,
                         fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                        fontSize: 15,
                         decoration: TextDecoration.underline,
                       ),
                     ),
@@ -83,26 +83,26 @@ class AppointmentsPage extends StatelessWidget {
                   ListTile(
                     leading: CircleAvatar(
                       radius: 30.0,
-                      backgroundImage: AssetImage('assets/salon_image.png'),
+                      backgroundImage: AssetImage('assets/delovska.jpg'),
                     ),
-                    title: Text('Beauty Salon 2'),
-                    subtitle: Text('Price: 400 MKD'),
+                    title: Text('Studio Delovska'),
+                    subtitle: Text('2000 MKD'),
                   ),
                   ListTile(
                     leading: CircleAvatar(
                       radius: 30.0,
-                      backgroundImage: AssetImage('assets/salon_image.png'),
+                      backgroundImage: AssetImage('assets/segreto.jpg'),
                     ),
-                    title: Text('Beauty Salon 3'),
-                    subtitle: Text('Price: 600 MKD'),
+                    title: Text('Segreto'),
+                    subtitle: Text('1500 MKD'),
                   ),
                   ListTile(
                     leading: CircleAvatar(
                       radius: 30.0,
-                      backgroundImage: AssetImage('assets/salon_image.png'),
+                      backgroundImage: AssetImage('assets/dlart.jpg'),
                     ),
-                    title: Text('Beauty Salon 4'),
-                    subtitle: Text('Price: 350 MKD'),
+                    title: Text('DL Art'),
+                    subtitle: Text('3000 MKD'),
                   ),
                 ],
               ),
