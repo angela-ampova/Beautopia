@@ -14,6 +14,8 @@ class SalonDetailsPage extends StatelessWidget {
     required this.salonLocation,
   });
 
+
+
   final TextEditingController _addressController = TextEditingController();
 
   void _openMap() async {
