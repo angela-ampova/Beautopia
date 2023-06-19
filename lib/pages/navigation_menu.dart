@@ -8,7 +8,7 @@ class NavigationMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        width: MediaQuery.of(context).size.width * 0.5, // Set menu width to half of the screen
+        width: MediaQuery.of(context).size.width * 0.5,
         decoration: BoxDecoration(
           color: Colors.indigo[900],
           boxShadow: [
@@ -26,59 +26,79 @@ class NavigationMenu extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 IconButton(
-                  icon: Icon(Icons.clear, color: Colors.deepOrange), // Set X icon with deepOrange color
+                  icon: Icon(Icons.clear, color: Colors.deepOrange),
                   onPressed: () {
-                    Navigator.pop(context); // Pop the current route and return to the previous page
+                    Navigator.pop(context);
                   },
                 ),
               ],
             ),
             Divider(),
-            Padding(
-              padding: EdgeInsets.only(left: 16.0, top: 16.0),
-              child: CircleAvatar(
-                radius: 40.0,
-                backgroundImage: AssetImage('assets/profile_picture.png'),
+            Center(
+              child: Padding(
+                padding: EdgeInsets.only(top: 16.0),
+                child: ClipOval(
+                  child: Image.asset(
+                    'assets/picture.jpg',
+                    width: 80.0,
+                    height: 80.0,
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(left: 16.0, top: 8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'John Doe',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16.0,
-                      color: Colors.white,
+            Center(
+              child: Padding(
+                padding: EdgeInsets.only(top: 8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Chloe225',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16.0,
+                        color: Colors.white,
+                      ),
                     ),
-                  ),
-                  Text(
-                    'johndoe@example.com',
-                    style: TextStyle(
-                      fontSize: 14.0,
-                      color: Colors.white,
+                    Text(
+                      'chloe@gmail.com',
+                      style: TextStyle(
+                        fontSize: 14.0,
+                        color: Colors.white,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             Divider(),
             ListTile(
               leading: Icon(Icons.home, color: Colors.deepOrange),
-              title: Text('Beauty Salons', style: TextStyle(color: Colors.white),),
+              title: Row(
+                children: [
+                  Text('Beauty Salons', style: TextStyle(color: Colors.white)),
+                  SizedBox(width: 10),
+                  Icon(Icons.arrow_right, color: Colors.white),
+                ],
+              ),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => SalonsListPage()), // Navigate to SalonsListPage
+                  MaterialPageRoute(builder: (context) => SalonsListPage()),
                 );
               },
             ),
             ListTile(
               leading: Icon(Icons.calendar_today, color: Colors.deepOrange),
-              title: Text('Appointments', style: TextStyle(color: Colors.white),),
+              title: Row(
+                children: [
+                  Text('Appointments', style: TextStyle(color: Colors.white)),
+                  SizedBox(width: 10),
+                  Icon(Icons.arrow_right, color: Colors.white),
+                ],
+              ),
               onTap: () {
                 Navigator.push(
                   context,
@@ -88,7 +108,13 @@ class NavigationMenu extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.person, color: Colors.deepOrange),
-              title: Text('Profile', style: TextStyle(color: Colors.white),),
+              title: Row(
+                children: [
+                  Text('Profile', style: TextStyle(color: Colors.white)),
+                  SizedBox(width: 10),
+                  Icon(Icons.arrow_right, color: Colors.white),
+                ],
+              ),
               onTap: () {
                 Navigator.push(
                   context,
@@ -96,17 +122,22 @@ class NavigationMenu extends StatelessWidget {
                 );
               },
             ),
-            ListTile(
-              leading: Icon(Icons.logout, color: Colors.deepOrange),
-              title: Text(
-                'Logout',
-                style: TextStyle(color: Colors.white),
-              ),
-              onTap: () {
-                // Perform logout action
-              },
-            ),
             SizedBox(height: 20.0),
+            Expanded(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: ListTile(
+                  leading: Icon(Icons.logout, color: Colors.deepOrange),
+                  title: Text(
+                    'Logout',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onTap: () {
+                    // Perform logout action
+                  },
+                ),
+              ),
+            ),
           ],
         ),
       ),

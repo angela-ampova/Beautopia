@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:latlong/latlong.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'book.dart';
 
@@ -10,32 +8,23 @@ class SalonDetailsPage extends StatelessWidget {
   final String salonImage;
   final String salonLocation;
 
-  const SalonDetailsPage({
+  SalonDetailsPage({
     required this.salonName,
     required this.salonImage,
     required this.salonLocation,
   });
 
-  void _openInMaps(BuildContext context) async {
-    final url = 'https://www.google.com/maps/search/?api=1&query=$salonLocation';
-    if (await canLaunch(url)) {
-      await launch(url);
+
+
+  final TextEditingController _addressController = TextEditingController();
+
+  void _openMap() async {
+    String address = _addressController.text;
+    String mapUrl = 'https://www.google.com/maps/search/?api=1&query=$address';
+    if (await canLaunch(mapUrl)) {
+      await launch(mapUrl);
     } else {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Error'),
-            content: Text('Could not open the location in Google Maps.'),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: Text('OK'),
-              ),
-            ],
-          );
-        },
-      );
+      print('Could not launch $mapUrl');
     }
   }
 
@@ -130,7 +119,7 @@ class SalonDetailsPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildDetailRow('Name', 'salonName'),
+                  _buildDetailRow('Name', salonName),
                   SizedBox(height: 20.0),
                   _buildDetailRow('Email', 'salon@example.com'),
                   SizedBox(height: 20.0),
@@ -147,7 +136,7 @@ class SalonDetailsPage extends StatelessWidget {
               margin: EdgeInsets.only(bottom: 20.0),
               child: ElevatedButton(
                 onPressed: () {
-                  _openInMaps(context);
+                  _openMap();
                 },
                 style: ElevatedButton.styleFrom(
                   primary: Colors.teal,
@@ -189,10 +178,4 @@ class SalonDetailsPage extends StatelessWidget {
       ],
     );
   }
-  canLaunch(String url) {}
-
-  launch(String url) {}
 }
-
-
-

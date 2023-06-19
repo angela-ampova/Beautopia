@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:file_picker/file_picker.dart';
 
 class BookPage extends StatefulWidget {
   @override
@@ -10,6 +11,18 @@ class _BookPageState extends State<BookPage> {
   String? _selectedService;
   DateTime? _selectedDate;
   DateTime? _selectedTime;
+  String? selectedFilePath; // Define selectedFilePath variable
+
+  Future<void> _uploadFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.image,
+    );
+    if (result != null) {
+      setState(() {
+        selectedFilePath = result.files.single.path!;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -171,7 +184,7 @@ class _BookPageState extends State<BookPage> {
             Container(
               margin: EdgeInsets.symmetric(horizontal: 20.0),
               child: ElevatedButton(
-                onPressed: _uploadImage,
+                onPressed: _uploadFile,
                 style: ElevatedButton.styleFrom(
                   primary: Colors.teal,
                   onPrimary: Colors.white,
