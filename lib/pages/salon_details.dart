@@ -14,8 +14,6 @@ class SalonDetailsPage extends StatelessWidget {
     required this.salonLocation,
   });
 
-
-
   final TextEditingController _addressController = TextEditingController();
 
   void _openMap() async {
@@ -61,57 +59,60 @@ class SalonDetailsPage extends StatelessWidget {
                 ),
               ),
             ),
-            // Salon Logo and Name
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(left: 20.0, bottom: 10.0),
-                  child: Column(
-                    children: [
-                      Image.asset(
-                        salonImage,
-                        width: 100.0,
-                        height: 100.0,
-                      ),
-                      SizedBox(height: 10.0),
-                      Text(
-                        salonName,
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
+            // Salon Logo, Name, and Book Button
+            Container(
+              alignment: Alignment.center,
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/logo.png',
+                      width: 100.0,
+                      height: 100.0,
+                    ),
+                    SizedBox(width: 20.0),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Sashions',
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(right: 20.0, bottom: 20.0),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => BookPage()),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.teal,
-                      padding: EdgeInsets.symmetric(
-                        vertical: 10.0,
-                        horizontal: 30.0,
-                      ),
+                        SizedBox(height: 10.0),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => BookPage()),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.teal,
+                            padding: EdgeInsets.symmetric(
+                              vertical: 10.0,
+                              horizontal: 30.0,
+                            ),
+                          ),
+                          child: Text(
+                            'Book',
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    child: Text(
-                      'Book',
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
+                  ],
                 ),
-              ],
+              ),
             ),
             // Salon Details
             Padding(
@@ -119,13 +120,13 @@ class SalonDetailsPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildDetailRow('Name', salonName),
+                  _buildDetailRow('Name', 'Sashions'),
                   SizedBox(height: 20.0),
-                  _buildDetailRow('Email', 'salon@example.com'),
+                  _buildDetailRow('Email', 'sashions@gmail.com'),
                   SizedBox(height: 20.0),
                   _buildDetailRow('Working Hours', '9 AM - 6 PM'),
                   SizedBox(height: 20.0),
-                  _buildDetailRow('Services', 'Hair Styling, Manicure'),
+                  _buildDetailRow('Services', 'Hair Styling, Makeup, Manicure'),
                 ],
               ),
             ),
@@ -146,7 +147,7 @@ class SalonDetailsPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
-                child: Text('Open Location in Maps'),
+                child: Text('Open Location in Google Maps'),
               ),
             ),
           ],
