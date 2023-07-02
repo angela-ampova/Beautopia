@@ -51,7 +51,7 @@ class ProfilePage extends StatelessWidget {
                   SizedBox(height: 10.0),
                   ClipOval(
                     child: Image.asset(
-                      'assets/logo.png',
+                      'assets/picture.jpg',
                       width: 80.0,
                       height: 80.0,
                       fit: BoxFit.cover,
