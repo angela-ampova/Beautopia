@@ -1,16 +1,26 @@
+import 'package:beautopia_project/pages/appointments.dart';
 import 'package:beautopia_project/pages/book.dart';
 import 'package:beautopia_project/pages/login.dart';
+import 'package:beautopia_project/pages/profile.dart';
 import 'package:beautopia_project/pages/register.dart';
+import 'package:beautopia_project/pages/salon_details.dart';
+import 'package:beautopia_project/pages/salons_list.dart';
 import 'package:flutter/material.dart';
 import 'pages/navigation_menu.dart';
 
 void main() {
   runApp(MaterialApp(
-    initialRoute: '/',
+    initialRoute: '/signin',
     routes: {
       '/': (context) => HomePage(),
       '/signin': (context) => SignInPage(),
       '/register': (context) => RegisterPage(),
+      '/book_appointment': (context) => BookPage(),
+      '/salons_list': (context) => SalonsListPage(),
+      '/salon_details': (context) => SalonDetailsPage(salonName: '', salonImage: '', salonLocation: '',),
+      '/profile': (context) => ProfilePage(),
+      '/appointments': (context) => AppointmentsPage(),
+      '/navigation': (context) => NavigationMenu(),
     },
   ));
 }
