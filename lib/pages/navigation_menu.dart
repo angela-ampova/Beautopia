@@ -133,7 +133,11 @@ class NavigationMenu extends StatelessWidget {
                     style: TextStyle(color: Colors.white),
                   ),
                   onTap: () {
-                    // Perform logout action
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      '/signin',
+                          (route) => false,
+                    );
                   },
                 ),
               ),
