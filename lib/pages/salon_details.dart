@@ -69,7 +69,7 @@ class SalonDetailsPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
-                      'assets/logo.png',
+                      'assets/sashions.png',
                       width: 100.0,
                       height: 100.0,
                     ),
