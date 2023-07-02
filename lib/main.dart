@@ -1,14 +1,20 @@
 import 'package:beautopia_project/pages/book.dart';
+import 'package:beautopia_project/pages/login.dart';
+import 'package:beautopia_project/pages/register.dart';
 import 'package:flutter/material.dart';
 import 'pages/navigation_menu.dart';
 
 void main() {
-  runApp(
-    const MaterialApp(
-      home: HomePage(),
-    ),
-  );
+  runApp(MaterialApp(
+    initialRoute: '/',
+    routes: {
+      '/': (context) => HomePage(),
+      '/signin': (context) => SignInPage(),
+      '/register': (context) => RegisterPage(),
+    },
+  ));
 }
+
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
