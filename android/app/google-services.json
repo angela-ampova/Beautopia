@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "57371897784",
+    "project_id": "beautopia-896c0",
+    "storage_bucket": "beautopia-896c0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:57371897784:android:4949d8f9cd5efeeef1e94d",
+        "android_client_info": {
+          "package_name": "com.example.project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "57371897784-jq20ckjou8e0nd05ia6v47h1e58aqqsq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6EVNM6yEkLyhOd6Al1CV3G12cz7_2sSw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "57371897784-jq20ckjou8e0nd05ia6v47h1e58aqqsq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
