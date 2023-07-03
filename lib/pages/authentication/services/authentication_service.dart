@@ -8,10 +8,10 @@ class AuthService {
   User? get currentUser => _auth.currentUser;
 
   Future<void> registerUser(
+      String username,
       String email,
       String password,
-      String name,
-      String surname,
+      String repeatpassword,
       ) async {
     try {
       UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
@@ -20,7 +20,7 @@ class AuthService {
       );
 
       // Update user profile with additional details
-      await userCredential.user!.updateDisplayName(name);
+      await userCredential.user!.updateDisplayName(username);
 
       // Save additional user details to Firestore or other database
       // Example: Saving to Firestore
@@ -28,8 +28,7 @@ class AuthService {
           .collection('users')
           .doc(userCredential.user!.uid)
           .set({
-        'name': name,
-        'surname': surname,
+        'username': username,
         'email': email,
       });
 

@@ -1,11 +1,21 @@
+import 'package:beautopia_project/pages/authentication/services/google_service.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'services/authentication_service.dart';
 
 class SignInPage extends StatelessWidget {
+  final AuthService _auth = AuthService();
+  final AuthGoogleService _authGoogle = AuthGoogleService();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  void _signIn(BuildContext context) {
+  void _signInWithEmailAndPassword() async {
+    String email = _emailController.text.trim();
+    String password = _passwordController.text.trim();
+    await _auth.signIn(email, password);
+  }
+
+  /*void _signIn(BuildContext context) {
     String email = _emailController.text;
     String password = _passwordController.text;
 
@@ -34,7 +44,7 @@ class SignInPage extends StatelessWidget {
       // Replace '/home' with the actual route for your Home Page
       Navigator.pushReplacementNamed(context, '/');
     }
-  }
+  }*/
 
   void _launchEmailApp(BuildContext context) async {
     const emailUrl = 'mailto:';
@@ -136,47 +146,39 @@ class SignInPage extends StatelessWidget {
                 filled: true,
               ),
             ),
-            SizedBox(height: 20.0),
-            ElevatedButton(
-              onPressed: () => _signIn(context),
-              child: Text(
-                'Sign In',
-                style: TextStyle(
-                  fontSize: 18.0,
-                  color: Colors.white,
-                ),
-              ),
-              style: ElevatedButton.styleFrom(
-                primary: Colors.teal,
-                padding: EdgeInsets.symmetric(vertical: 16.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-              ),
-            ),
-            SizedBox(height: 20.0),
-            Text(
-              'or use other profiles',
-              style: TextStyle(
-                fontSize: 16.0,
-                color: Colors.grey,
-              ),
-              textAlign: TextAlign.center,
-            ),
+    SizedBox(height: 20.0),
+    ElevatedButton(
+    onPressed: () async {
+    await _signInWithEmailAndPassword; // You missed the parentheses to call the function
+    if (_authGoogle.signedInUser != null || _auth.currentUser != null) {
+    Navigator.pushNamed(context, '/');
+    }
+    },
+    child: Text(
+    'Sign In',
+    style: TextStyle(
+    fontSize: 18.0,
+    color: Colors.white,
+    ),
+    ),
+    style: ElevatedButton.styleFrom(
+    primary: Colors.teal,
+    padding: EdgeInsets.symmetric(vertical: 16.0),
+    shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(8.0),
+    ),
+    ),
+    ),
             SizedBox(height: 10.0),
-            ElevatedButton.icon(
-              onPressed: () => _launchEmailApp(context),
-              icon: Icon(Icons.mail, color: Colors.white),
-              label: Text(
-                'Mail',
-                style: TextStyle(color: Colors.white),
-              ),
-              style: ElevatedButton.styleFrom(
-                primary: Colors.deepOrange,
-                padding: EdgeInsets.symmetric(vertical: 16.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
+            GestureDetector(
+              onTap: () async {
+                await _authGoogle.signInWithGoogle();
+                Navigator.pop(context);
+              },
+              child: Icon(
+                Icons.mail,
+                size: 70,
+                color: Colors.redAccent,
               ),
             ),
             SizedBox(height: 10.0),
