@@ -15,62 +15,6 @@ class SignInPage extends StatelessWidget {
     await _auth.signIn(email, password);
   }
 
-  /*void _signIn(BuildContext context) {
-    String email = _emailController.text;
-    String password = _passwordController.text;
-
-    if (email.isEmpty || password.isEmpty) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Error'),
-            content: Text('Please enter email and password'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text('OK'),
-              ),
-            ],
-          );
-        },
-      );
-    } else {
-      // Perform sign-in logic here
-
-      // Redirect the user to the Home Page
-      // Replace '/home' with the actual route for your Home Page
-      Navigator.pushReplacementNamed(context, '/');
-    }
-  }*/
-
-  void _launchEmailApp(BuildContext context) async {
-    const emailUrl = 'mailto:';
-    if (await canLaunch(emailUrl)) {
-      await launch(emailUrl);
-    } else {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Error'),
-            content: Text('Failed to launch email app'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text('OK'),
-              ),
-            ],
-          );
-        },
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -148,11 +92,11 @@ class SignInPage extends StatelessWidget {
             ),
     SizedBox(height: 20.0),
     ElevatedButton(
-    onPressed: () async {
-    await _signInWithEmailAndPassword; // You missed the parentheses to call the function
-    if (_authGoogle.signedInUser != null || _auth.currentUser != null) {
-    Navigator.pushNamed(context, '/');
-    }
+      onPressed: () async {
+         _signInWithEmailAndPassword();
+        if ( _authGoogle.signedInUser != null || _auth.currentUser != null)  {
+          Navigator.pushNamed(context, '/');
+        }
     },
     child: Text(
     'Sign In',
@@ -186,7 +130,7 @@ class SignInPage extends StatelessWidget {
               alignment: Alignment.center,
               child: GestureDetector(
                 onTap: () {
-                  // Handle "Forgot Password?" action here
+                  Navigator.pushNamed(context, '/register');
                 },
                 child: Text(
                   'Forgot Password?',

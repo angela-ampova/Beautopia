@@ -34,219 +34,146 @@ class _BookPageState extends State<BookPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Back Button
-            Container(
-              margin: EdgeInsets.only(left: 10.0, top: 10.0),
-              child: IconButton(
-                icon: Icon(
-                  Icons.arrow_back,
-                  color: Colors.teal,
-                ),
-                onPressed: () {
-                  Navigator.pop(context); // Navigate back to the previous screen
-                },
-              ),
-            ),
-            // Header
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 20.0),
-              alignment: Alignment.center,
-              child: Text(
-                'Book',
-                style: TextStyle(
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.teal,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Back Button
+              Container(
+                margin: EdgeInsets.only(left: 10.0, top: 10.0),
+                child: IconButton(
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: Colors.teal,
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context); // Navigate back to the previous screen
+                  },
                 ),
               ),
-            ),
-            // Logo and Name
-            Container(
-              alignment: Alignment.center,
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(20.0),
+              // Header
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 20.0),
+                alignment: Alignment.center,
+                child: Text(
+                  'Book',
+                  style: TextStyle(
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.teal,
+                  ),
+                ),
+              ),
+              // Logo and Name
+              Container(
+                alignment: Alignment.center,
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(20.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(left: 20.0),
+                        child: Image.asset(
+                          'assets/sashions.png',
+                          width: 100.0,
+                          height: 100.0,
+                        ),
+                      ),
+                      SizedBox(width: 20.0),
+                      Text(
+                        'Sashions',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: 20.0),
+              // Select Service Label
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.0),
+                child: Text(
+                  'Select Service',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    color: Colors.teal,
+                  ),
+                ),
+              ),
+              SizedBox(height: 8.0),
+              // Service Dropdown
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.0),
+                child: DropdownButtonFormField<String>(
+                  decoration: InputDecoration(
+                    hintText: 'Select',
+                    hintStyle: TextStyle(color: Colors.black),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                  ),
+                  value: _selectedService,
+                  onChanged: _selectService,
+                  items: _serviceOptions.map((String service) {
+                    return DropdownMenuItem<String>(
+                      value: service,
+                      child: Text(
+                        service,
+                        style: TextStyle(color: Colors.teal),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ),
+              SizedBox(height: 20.0),
+              // Date and Time Buttons
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      margin: EdgeInsets.only(left: 20.0),
-                      child: Image.asset(
-                        'assets/logo.png',
-                        width: 100.0,
-                        height: 100.0,
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          _selectDate(context); // Open Date Picker
+                        },
+                        child: Text(
+                          'Select Date',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        style: ElevatedButton.styleFrom(primary: Colors.teal),
                       ),
                     ),
-                    SizedBox(width: 20.0),
-                    Text(
-                      'Sashions',
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
+                    SizedBox(width: 10.0),
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          _selectTime(context); // Open Time Picker
+                        },
+                        child: Text(
+                          'Select Time',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        style: ElevatedButton.styleFrom(primary: Colors.teal),
                       ),
                     ),
                   ],
                 ),
               ),
-            ),
-            SizedBox(height: 20.0),
-            // Select Service Label
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
-              child: Text(
-                'Select Service',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  color: Colors.teal,
-                ),
-              ),
-            ),
-            SizedBox(height: 8.0),
-            // Service Dropdown
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
-              child: DropdownButtonFormField<String>(
-                decoration: InputDecoration(
-                  hintText: 'Select',
-                  hintStyle: TextStyle(color: Colors.black),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black),
-                  ),
-                ),
-                value: _selectedService,
-                onChanged: _selectService,
-                items: _serviceOptions.map((String service) {
-                  return DropdownMenuItem<String>(
-                    value: service,
-                    child: Text(
-                      service,
-                      style: TextStyle(color: Colors.teal),
-                    ),
-                  );
-                }).toList(),
-              ),
-            ),
-            SizedBox(height: 20.0),
-            // Date and Time Buttons
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        _selectDate(context); // Open Date Picker
-                      },
-                      child: Text(
-                        'Select Date',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      style: ElevatedButton.styleFrom(primary: Colors.teal),
-                    ),
-                  ),
-                  SizedBox(width: 10.0),
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        _selectTime(context); // Open Time Picker
-                      },
-                      child: Text(
-                        'Select Time',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      style: ElevatedButton.styleFrom(primary: Colors.teal),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 20.0),
-            // Selected Date and Time
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Selected Date:',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      color: Colors.teal,
-                    ),
-                  ),
-                  SizedBox(height: 8.0),
-                  Text(
-                    _selectedDate != null
-                        ? _selectedDate.toString().split(' ')[0] // Show only the date
-                        : 'No date selected',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      color: _selectedDate != null ? Colors.black : Colors.red,
-                      fontWeight: _selectedDate != null ? FontWeight.normal : FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 20.0),
-                  Text(
-                    'Selected Time:',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      color: Colors.teal,
-                    ),
-                  ),
-                  SizedBox(height: 8.0),
-                  Text(
-                    _selectedTime != null
-                        ? '${_selectedTime!.hour}:${_selectedTime!.minute}' // Display selected time only
-                        : 'No time selected',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      color: _selectedTime != null ? Colors.black : Colors.red,
-                      fontWeight: _selectedTime != null ? FontWeight.normal : FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-            SizedBox(height: 20.0),
-            // Select Service Label
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
-              child: Text(
-                'Upload Inspiration',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  color: Colors.teal,
-                ),
-              ),
-            ),
-            SizedBox(height: 20.0),
-            // Upload Button
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
-              child: ElevatedButton(
-                onPressed: _uploadFile,
-                child: Text(
-                  'Upload from device',
-                  style: TextStyle(color: Colors.white),
-                ),
-                style: ElevatedButton.styleFrom(primary: Colors.teal),
-              ),
-            ),
-            SizedBox(height: 20.0),
-            // Total Price
-            if (_selectedService != null)
+              SizedBox(height: 20.0),
+              // Selected Date and Time
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Total Price:',
+                      'Selected Date:',
                       style: TextStyle(
                         fontSize: 16.0,
                         color: Colors.teal,
@@ -254,36 +181,111 @@ class _BookPageState extends State<BookPage> {
                     ),
                     SizedBox(height: 8.0),
                     Text(
-                      '${servicePrices[_selectedService!]} MKD',
+                      _selectedDate != null
+                          ? _selectedDate.toString().split(' ')[0] // Show only the date
+                          : 'No date selected',
                       style: TextStyle(
                         fontSize: 16.0,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
+                        color: _selectedDate != null ? Colors.black : Colors.red,
+                        fontWeight: _selectedDate != null ? FontWeight.normal : FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 20.0),
+                    Text(
+                      'Selected Time:',
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        color: Colors.teal,
+                      ),
+                    ),
+                    SizedBox(height: 8.0),
+                    Text(
+                      _selectedTime != null
+                          ? '${_selectedTime!.hour}:${_selectedTime!.minute}' // Display selected time only
+                          : 'No time selected',
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        color: _selectedTime != null ? Colors.black : Colors.red,
+                        fontWeight: _selectedTime != null ? FontWeight.normal : FontWeight.bold,
                       ),
                     ),
                   ],
                 ),
               ),
-            SizedBox(height: 20.0),
-            // Finish Button
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
-              child: Align(
-                alignment: Alignment.centerRight,
+
+              SizedBox(height: 20.0),
+              // Select Service Label
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.0),
+                child: Text(
+                  'Upload Inspiration',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    color: Colors.teal,
+                  ),
+                ),
+              ),
+              SizedBox(height: 20.0),
+              // Upload Button
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.0),
                 child: ElevatedButton(
-                  onPressed: () {
-                    // Perform action on finish button press
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
-                  },
+                  onPressed: _uploadFile,
                   child: Text(
-                    'Finish',
+                    'Upload from device',
                     style: TextStyle(color: Colors.white),
                   ),
                   style: ElevatedButton.styleFrom(primary: Colors.teal),
                 ),
               ),
-            ),
-          ],
+              SizedBox(height: 20.0),
+              // Total Price
+              if (_selectedService != null)
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Total Price:',
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          color: Colors.teal,
+                        ),
+                      ),
+                      SizedBox(height: 8.0),
+                      Text(
+                        '${servicePrices[_selectedService!]} MKD',
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              SizedBox(height: 20.0),
+              // Finish Button
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.0),
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // Perform action on finish button press
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
+                    },
+                    child: Text(
+                      'Finish',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    style: ElevatedButton.styleFrom(primary: Colors.teal),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
