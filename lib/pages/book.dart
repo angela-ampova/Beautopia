@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:beautopia_project/main.dart';
 
+import '../data_holder/data_holder.dart';
+import '../models/appointment.dart';
+
 class BookPage extends StatefulWidget {
   @override
   _BookPageState createState() => _BookPageState();
@@ -12,6 +15,7 @@ class _BookPageState extends State<BookPage> {
   DateTime? _selectedDate;
   TimeOfDay? _selectedTime;
   String? selectedFilePath; // Define selectedFilePath variable
+  var data = DataHolder();
 
   final Map<String, double> servicePrices = {
     'Hair': 1500,
@@ -28,6 +32,20 @@ class _BookPageState extends State<BookPage> {
         selectedFilePath = result.files.single.path!;
       });
     }
+  }
+
+  Appointment setAppointment(String type, String date, String time) {
+    return Appointment(
+      serviceType: type,
+      appointmentDate: date,
+      appointmentTime: time,
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedService = _serviceOptions[0];
   }
 
   @override
@@ -131,6 +149,7 @@ class _BookPageState extends State<BookPage> {
                   }).toList(),
                 ),
               ),
+
               SizedBox(height: 20.0),
               // Date and Time Buttons
               Padding(
@@ -187,7 +206,8 @@ class _BookPageState extends State<BookPage> {
                       style: TextStyle(
                         fontSize: 16.0,
                         color: _selectedDate != null ? Colors.black : Colors.red,
-                        fontWeight: _selectedDate != null ? FontWeight.normal : FontWeight.bold,
+                        fontWeight:
+                        _selectedDate != null ? FontWeight.normal : FontWeight.bold,
                       ),
                     ),
                     SizedBox(height: 20.0),
@@ -206,7 +226,8 @@ class _BookPageState extends State<BookPage> {
                       style: TextStyle(
                         fontSize: 16.0,
                         color: _selectedTime != null ? Colors.black : Colors.red,
-                        fontWeight: _selectedTime != null ? FontWeight.normal : FontWeight.bold,
+                        fontWeight:
+                        _selectedTime != null ? FontWeight.normal : FontWeight.bold,
                       ),
                     ),
                   ],
@@ -274,7 +295,10 @@ class _BookPageState extends State<BookPage> {
                   child: ElevatedButton(
                     onPressed: () {
                       // Perform action on finish button press
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HomePage()));
                     },
                     child: Text(
                       'Finish',
