@@ -7,6 +7,14 @@ class AuthService {
 
   User? get currentUser => _auth.currentUser;
 
+  Future<String?> getCurrentUserId() async {
+    User? user = currentUser;
+    if (user != null) {
+      return user.uid;
+    }
+    return null;
+  }
+
   Future<void> registerUser(
       String username,
       String email,

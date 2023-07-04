@@ -1,3 +1,4 @@
+import 'package:beautopia_project/pages/authentication/services/authentication_service.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -10,8 +11,40 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _repeatPasswordController = TextEditingController();
+  final AuthService _authService = AuthService();
+  bool _isChecked = false;
   bool _agreedToTerms = false;
   bool _passwordsMatch = true;
+
+  Future<void> registerUser(BuildContext context) async {
+    String username = _usernameController.text.trim();
+    String email = _emailController.text.trim();
+    String password = _passwordController.text;
+    String repeatPassword = _repeatPasswordController.text;
+
+  if(password==repeatPassword) {
+  await _authService.registerUser(email, password, repeatPassword, username);
+  Navigator.pushNamed(context, '/signin');
+  } else {
+  showDialog(
+  context: context,
+  builder: (BuildContext context) {
+  return AlertDialog(
+  title: Text('Error'),
+  content: Text('Passwords do not match.'),
+  actions: [
+  TextButton(
+  child: Text('OK'),
+  onPressed: () {
+  Navigator.pop(context);
+  },
+  ),
+  ],
+  );
+  },
+  );
+  }
+}
 
   void _toggleAgreeToTerms(bool value) {
     setState(() {
@@ -87,6 +120,8 @@ class _RegisterPageState extends State<RegisterPage> {
     _repeatPasswordController.dispose();
     super.dispose();
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -216,9 +251,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 Container(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {
-                      _validateFields(context);
-                    },
+                    onPressed: () => registerUser(context),
                     child: Text(
                       'Continue',
                       style: TextStyle(color: Colors.white),
