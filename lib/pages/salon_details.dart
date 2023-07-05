@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../custom_ui_elements/custom_button.dart';
 import 'book.dart';
 
 class SalonDetailsPage extends StatelessWidget {
@@ -86,27 +87,20 @@ class SalonDetailsPage extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: 10.0),
-                        ElevatedButton(
+                        CustomButton(
                           onPressed: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) => BookPage()),
                             );
                           },
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.teal,
-                            padding: EdgeInsets.symmetric(
-                              vertical: 10.0,
-                              horizontal: 30.0,
-                            ),
+                          text: 'Book',
+                          backgroundColor: Colors.teal,
+                          padding: EdgeInsets.symmetric(
+                            vertical: 10.0,
+                            horizontal: 30.0,
                           ),
-                          child: Text(
-                            'Book',
-                            style: TextStyle(
-                              fontSize: 16.0,
-                              color: Colors.white,
-                            ),
-                          ),
+                          textColor: Colors.white, // Specify the text color
                         ),
                       ],
                     ),
@@ -135,19 +129,14 @@ class SalonDetailsPage extends StatelessWidget {
             Container(
               alignment: Alignment.bottomCenter,
               margin: EdgeInsets.only(bottom: 20.0),
-              child: ElevatedButton(
+              child: CustomButton(
                 onPressed: () {
                   _openMap();
                 },
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.teal,
-                  onPrimary: Colors.white,
-                  padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                ),
-                child: Text('Open Location in Google Maps'),
+                text: 'Open Location in Google Maps',
+                backgroundColor: Colors.teal,
+                textColor: Colors.white,
+                padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
               ),
             ),
           ],

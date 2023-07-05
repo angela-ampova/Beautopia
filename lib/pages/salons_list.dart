@@ -1,5 +1,5 @@
-import 'package:beautopia_project/pages/salon_details.dart';
 import 'package:flutter/material.dart';
+import '../custom_ui_elements/custom_list.dart';
 import 'salon_details.dart';
 
 class SalonsListPage extends StatelessWidget {
@@ -77,22 +77,18 @@ class SalonsListPage extends StatelessWidget {
             ),
             // Salons List
             Expanded(
-              child: ListView.separated(
-                padding: EdgeInsets.all(10.0),
-                itemCount: salonNames.length,
-                separatorBuilder: (BuildContext context, int index) =>
-                    Divider(color: Colors.grey),
-                itemBuilder: (BuildContext context, int index) {
-                  return ListTile(
-                    title: Text(salonNames[index]),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SalonDetailsPage(salonName: "", salonImage: '', salonLocation: '',),
-                        ),
-                      );
-                    },
+              child: CustomList(
+                items: salonNames,
+                onTap: (index) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SalonDetailsPage(
+                        salonName: salonNames[index],
+                        salonImage: '',
+                        salonLocation: '',
+                      ),
+                    ),
                   );
                 },
               ),

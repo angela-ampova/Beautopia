@@ -1,6 +1,11 @@
 import 'package:beautopia_project/pages/authentication/services/authentication_service.dart';
 import 'package:flutter/material.dart';
 
+import '../../custom_ui_elements/custom_error_alert_dialog.dart';
+import '../../custom_ui_elements/custom_button.dart';
+import '../../custom_ui_elements/custom_text_field.dart';
+import '../../custom_ui_elements/custom_checkbox.dart';
+
 class RegisterPage extends StatefulWidget {
   @override
   _RegisterPageState createState() => _RegisterPageState();
@@ -16,35 +21,34 @@ class _RegisterPageState extends State<RegisterPage> {
   bool _agreedToTerms = false;
   bool _passwordsMatch = true;
 
+  void _showErrorDialog(BuildContext context, String title, String content) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CustomErrorAlertDialog(
+          title: title,
+          content: content,
+          onOkPressed: () {
+            Navigator.pop(context);
+          },
+        );
+      },
+    );
+  }
+
   Future<void> registerUser(BuildContext context) async {
     String username = _usernameController.text.trim();
     String email = _emailController.text.trim();
     String password = _passwordController.text;
     String repeatPassword = _repeatPasswordController.text;
 
-  if(password==repeatPassword) {
-  await _authService.registerUser(email, password, repeatPassword, username);
-  Navigator.pushNamed(context, '/signin');
-  } else {
-  showDialog(
-  context: context,
-  builder: (BuildContext context) {
-  return AlertDialog(
-  title: Text('Error'),
-  content: Text('Passwords do not match.'),
-  actions: [
-  TextButton(
-  child: Text('OK'),
-  onPressed: () {
-  Navigator.pop(context);
-  },
-  ),
-  ],
-  );
-  },
-  );
+    if (password == repeatPassword) {
+      await _authService.registerUser(email, password, repeatPassword, username);
+      Navigator.pushNamed(context, '/signin');
+    } else {
+      _showErrorDialog(context, 'Error', 'Passwords do not match.');
+    }
   }
-}
 
   void _toggleAgreeToTerms(bool value) {
     setState(() {
@@ -64,41 +68,9 @@ class _RegisterPageState extends State<RegisterPage> {
         _passwordController.text.isEmpty ||
         _repeatPasswordController.text.isEmpty ||
         !_agreedToTerms) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Error'),
-            content: Text('Please fill out all your information'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text('OK'),
-              ),
-            ],
-          );
-        },
-      );
+      _showErrorDialog(context, 'Error', 'Please fill out all your information');
     } else if (!_passwordsMatch) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Error'),
-            content: Text("The passwords don't match!"),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text('OK'),
-              ),
-            ],
-          );
-        },
-      );
+      _showErrorDialog(context, 'Error', "The passwords don't match!");
     } else {
       // Perform action on continue button press
       Navigator.pushReplacementNamed(
@@ -121,8 +93,6 @@ class _RegisterPageState extends State<RegisterPage> {
     super.dispose();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -141,71 +111,31 @@ class _RegisterPageState extends State<RegisterPage> {
                     color: Colors.black,
                   ),
                 ),
-                SizedBox(height: 20.0),
-                Text(
-                  'Username',
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    color: Colors.teal,
-                  ),
-                ),
-                TextFormField(
+                SizedBox(height: 10.0),
+                CustomTextField(
                   controller: _usernameController,
-                  decoration: InputDecoration(
-                    hintText: 'Enter your username',
-                    hintStyle: TextStyle(color: Colors.grey),
-                  ),
+                  label: 'Username',
                 ),
                 SizedBox(height: 20.0),
-                Text(
-                  'Email',
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    color: Colors.teal,
-                  ),
-                ),
-                TextFormField(
+                CustomTextField(
                   controller: _emailController,
-                  decoration: InputDecoration(
-                    hintText: 'Enter your email',
-                    hintStyle: TextStyle(color: Colors.grey),
-                  ),
+                  label: 'Email',
                 ),
                 SizedBox(height: 20.0),
-                Text(
-                  'Password',
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    color: Colors.teal,
-                  ),
-                ),
-                TextFormField(
+                CustomTextField(
                   controller: _passwordController,
+                  label: 'Password',
                   obscureText: true,
-                  decoration: InputDecoration(
-                    hintText: 'Enter your password',
-                    hintStyle: TextStyle(color: Colors.grey),
-                  ),
                   onChanged: (value) {
                     _checkPasswordMatch(value, _repeatPasswordController.text);
                   },
                 ),
                 SizedBox(height: 20.0),
-                Text(
-                  'Repeat Password',
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    color: Colors.teal,
-                  ),
-                ),
-                TextFormField(
+                CustomTextField(
                   controller: _repeatPasswordController,
+                  label: 'Repeat Password',
                   obscureText: true,
-                  decoration: InputDecoration(
-                    hintText: 'Enter your password again',
-                    hintStyle: TextStyle(color: Colors.grey),
-                    errorText: _passwordsMatch ? null : "The passwords don't match!",
-                  ),
+                  errorText: _passwordsMatch ? null : "The passwords don't match!",
                   onChanged: (value) {
                     _checkPasswordMatch(_passwordController.text, value);
                   },
@@ -213,12 +143,13 @@ class _RegisterPageState extends State<RegisterPage> {
                 SizedBox(height: 20.0),
                 Row(
                   children: [
-                    Checkbox(
+                    CustomCheckbox(
                       value: _agreedToTerms,
                       onChanged: (bool? value) {
                         _toggleAgreeToTerms(value ?? false);
                       },
-                      shape: CircleBorder(),
+                      activeColor: Colors.teal, // Set the active color to teal
+                      checkColor: Colors.white, // Set the check color to white
                     ),
                     RichText(
                       text: TextSpan(
@@ -247,19 +178,15 @@ class _RegisterPageState extends State<RegisterPage> {
                       style: TextStyle(color: Colors.red),
                     ),
                   ),
-                SizedBox(height: 40.0),
+                SizedBox(height: 20.0),
                 Container(
                   width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () => registerUser(context),
-                    child: Text(
-                      'Continue',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.teal,
-                      padding: EdgeInsets.symmetric(vertical: 16.0),
-                    ),
+                  child: CustomButton(
+                    onPressed: () => _validateFields(context),
+                    text: 'Continue',
+                    backgroundColor: Colors.teal,
+                    textColor: Colors.white,
+                    padding: EdgeInsets.symmetric(vertical: 16.0),
                   ),
                 ),
                 SizedBox(height: 20.0),
@@ -299,4 +226,3 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 }
-
