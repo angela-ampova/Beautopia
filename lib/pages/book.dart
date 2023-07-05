@@ -2,8 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:beautopia_project/main.dart';
 
+import '../custom_ui_elements/custom_alert_dialog.dart';
+import '../custom_ui_elements/custom_button.dart';
+import '../custom_ui_elements/custom_date_picker.dart';
+import '../custom_ui_elements/custom_dropdown.dart';
+import '../custom_ui_elements/custom_error_alert_dialog.dart';
+import '../custom_ui_elements/custom_time_picker.dart';
 import '../data_holder/data_holder.dart';
 import '../models/appointment.dart';
+import 'package:intl/intl.dart';
+
 
 class BookPage extends StatefulWidget {
   @override
@@ -42,6 +50,33 @@ class _BookPageState extends State<BookPage> {
     );
   }
 
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime.now().add(Duration(days: 500)),
+    );
+    if (pickedDate != null) {
+      setState(() {
+        _selectedDate = pickedDate;
+      });
+    }
+  }
+
+  Future<void> _selectTime(BuildContext context) async {
+    final TimeOfDay? pickedTime = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+    if (pickedTime != null) {
+      setState(() {
+        _selectedTime = pickedTime;
+      });
+    }
+  }
+
+
   @override
   void initState() {
     super.initState();
@@ -65,7 +100,8 @@ class _BookPageState extends State<BookPage> {
                     color: Colors.teal,
                   ),
                   onPressed: () {
-                    Navigator.pop(context); // Navigate back to the previous screen
+                    Navigator.pop(
+                        context); // Navigate back to the previous screen
                   },
                 ),
               ),
@@ -126,28 +162,10 @@ class _BookPageState extends State<BookPage> {
               ),
               SizedBox(height: 8.0),
               // Service Dropdown
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0),
-                child: DropdownButtonFormField<String>(
-                  decoration: InputDecoration(
-                    hintText: 'Select',
-                    hintStyle: TextStyle(color: Colors.black),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
-                    ),
-                  ),
-                  value: _selectedService,
-                  onChanged: _selectService,
-                  items: _serviceOptions.map((String service) {
-                    return DropdownMenuItem<String>(
-                      value: service,
-                      child: Text(
-                        service,
-                        style: TextStyle(color: Colors.teal),
-                      ),
-                    );
-                  }).toList(),
-                ),
+              CustomDropdown(
+                options: _serviceOptions,
+                value: _selectedService,
+                onChanged: _selectService,
               ),
 
               SizedBox(height: 20.0),
@@ -157,35 +175,34 @@ class _BookPageState extends State<BookPage> {
                 child: Row(
                   children: [
                     Expanded(
-                      child: ElevatedButton(
+                      child: CustomButton(
                         onPressed: () {
-                          _selectDate(context); // Open Date Picker
+                          _selectDate(context);
                         },
-                        child: Text(
-                          'Select Date',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        style: ElevatedButton.styleFrom(primary: Colors.teal),
+                        text: 'Select Date',
+                        backgroundColor: Colors.teal,
+                        textColor: Colors.white,
+                        padding: EdgeInsets.symmetric(vertical: 16.0),
                       ),
                     ),
                     SizedBox(width: 10.0),
                     Expanded(
-                      child: ElevatedButton(
+                      child: CustomButton(
                         onPressed: () {
-                          _selectTime(context); // Open Time Picker
+                          _selectTime(context);
                         },
-                        child: Text(
-                          'Select Time',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        style: ElevatedButton.styleFrom(primary: Colors.teal),
+                        text: 'Select Time',
+                        backgroundColor: Colors.teal,
+                        textColor: Colors.white,
+                        padding: EdgeInsets.symmetric(vertical: 16.0),
                       ),
                     ),
                   ],
                 ),
               ),
+
               SizedBox(height: 20.0),
-              // Selected Date and Time
+// Selected Date and Time
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.0),
                 child: Column(
@@ -201,7 +218,7 @@ class _BookPageState extends State<BookPage> {
                     SizedBox(height: 8.0),
                     Text(
                       _selectedDate != null
-                          ? _selectedDate.toString().split(' ')[0] // Show only the date
+                          ? DateFormat.yMd().format(_selectedDate!)
                           : 'No date selected',
                       style: TextStyle(
                         fontSize: 16.0,
@@ -221,7 +238,7 @@ class _BookPageState extends State<BookPage> {
                     SizedBox(height: 8.0),
                     Text(
                       _selectedTime != null
-                          ? '${_selectedTime!.hour}:${_selectedTime!.minute}' // Display selected time only
+                          ? _selectedTime!.format(context)
                           : 'No time selected',
                       style: TextStyle(
                         fontSize: 16.0,
@@ -250,13 +267,12 @@ class _BookPageState extends State<BookPage> {
               // Upload Button
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.0),
-                child: ElevatedButton(
+                child: CustomButton(
                   onPressed: _uploadFile,
-                  child: Text(
-                    'Upload from device',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  style: ElevatedButton.styleFrom(primary: Colors.teal),
+                  text: 'Upload from device',
+                  backgroundColor: Colors.teal,
+                  textColor: Colors.white,
+                  padding: EdgeInsets.symmetric(vertical: 16.0),
                 ),
               ),
               SizedBox(height: 20.0),
@@ -286,25 +302,22 @@ class _BookPageState extends State<BookPage> {
                     ],
                   ),
                 ),
+
               SizedBox(height: 20.0),
               // Finish Button
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.0),
                 child: Align(
                   alignment: Alignment.centerRight,
-                  child: ElevatedButton(
+                  child: CustomButton(
                     onPressed: () {
                       // Perform action on finish button press
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => HomePage()));
+                      _showBookingSuccessDialog(context);
                     },
-                    child: Text(
-                      'Finish',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    style: ElevatedButton.styleFrom(primary: Colors.teal),
+                    text: 'Finish',
+                    backgroundColor: Colors.teal,
+                    textColor: Colors.white,
+                    padding: EdgeInsets.symmetric(vertical: 16.0),
                   ),
                 ),
               ),
@@ -321,36 +334,63 @@ class _BookPageState extends State<BookPage> {
     });
   }
 
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime.now().add(Duration(days: 500)),
-    );
-    if (pickedDate != null) {
-      setState(() {
-        _selectedDate = pickedDate;
-      });
-    }
+
+  void _handleDateSelected(DateTime? date) {
+    setState(() {
+      _selectedDate = date;
+    });
   }
 
-  Future<void> _selectTime(BuildContext context) async {
-    final TimeOfDay? pickedTime = await showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.now(),
-    );
-    if (pickedTime != null) {
-      setState(() {
-        _selectedTime = pickedTime;
-      });
-    }
+  void _handleTimeSelected(TimeOfDay? time) {
+    setState(() {
+      _selectedTime = time;
+    });
   }
+
 
   List<String> get _serviceOptions => servicePrices.keys.toList();
+
+  void _showBookingSuccessDialog(BuildContext context) {
+    if (_selectedService == null || _selectedDate == null ||
+        _selectedTime == null) {
+      _showErrorDialog(context, 'Please select a service, date, and time.');
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CustomAlertDialog(
+            title: 'Booking Success',
+            content: 'You have successfully booked your appointment!',
+            onOkPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => HomePage()),
+              );
+            },
+          );
+        },
+      );
+    }
+  }
+
+  void _showErrorDialog(BuildContext context, String errorMessage) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CustomErrorAlertDialog(
+          title: 'Error',
+          content: errorMessage,
+          onOkPressed: () {
+            Navigator.pop(context); // Dismiss the error dialog
+          },
+        );
+      },
+    );
+  }
 }
 
-void main() {
+
+  void main() {
   runApp(MaterialApp(
     home: BookPage(),
   ));

@@ -7,6 +7,9 @@ import 'package:beautopia_project/pages/salon_details.dart';
 import 'package:beautopia_project/pages/salons_list.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'custom_ui_elements/custom_app_bar.dart';
+import 'custom_ui_elements/custom_button.dart';
+import 'custom_ui_elements/custom_card.dart';
 import 'pages/navigation_menu.dart';
 
 void main() async {
@@ -20,10 +23,20 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        primaryColor: Colors.teal,
+        inputDecorationTheme: InputDecorationTheme(
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.teal),
+          ),
+          labelStyle: TextStyle(
+            color: Colors.teal,
+          ),
+        ),
+      ),
       initialRoute: '/signin',
       routes: {
         '/': (context) => HomePage(),
@@ -31,7 +44,11 @@ class MyApp extends StatelessWidget {
         '/register': (context) => RegisterPage(),
         '/book_appointment': (context) => BookPage(),
         '/salons_list': (context) => SalonsListPage(),
-        '/salon_details': (context) => SalonDetailsPage(salonName: '', salonImage: '', salonLocation: '',),
+        '/salon_details': (context) => SalonDetailsPage(
+          salonName: '',
+          salonImage: '',
+          salonLocation: '',
+        ),
         '/profile': (context) => ProfilePage(),
         '/appointments': (context) => AppointmentsPage(),
         '/navigation': (context) => NavigationMenu(),
@@ -41,20 +58,18 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Beauty Salons'),
+      appBar: CustomAppBar(
+        title: 'Beauty Salons',
         backgroundColor: Colors.teal,
       ),
       drawer: NavigationMenu(),
       body: Column(
         children: [
-          // Logo
           Container(
             alignment: Alignment.center,
             margin: EdgeInsets.all(20.0),
@@ -64,8 +79,6 @@ class HomePage extends StatelessWidget {
               height: 100.0,
             ),
           ),
-
-          // Beauty Salons List
           Expanded(
             child: ListView(
               padding: EdgeInsets.all(10.0),
@@ -98,39 +111,6 @@ class HomePage extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class SalonCard extends StatelessWidget {
-  final String name;
-  final String description;
-
-  SalonCard({
-    required this.name,
-    required this.description,});
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.symmetric(vertical: 10.0),
-      child: ListTile(
-        title: Text(name),
-        subtitle: Text(description),
-        trailing: ElevatedButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => BookPage()),
-            );
-          },
-          style: ElevatedButton.styleFrom(
-            primary: Colors.teal, // Change the button background color
-            onPrimary: Colors.white, // Change the button text color
-          ),
-          child: Text('Book'),
-        ),
       ),
     );
   }

@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../custom_ui_elements/custom_button.dart';
+
+
 class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -110,21 +114,14 @@ class ProfilePage extends StatelessWidget {
             Container(
               alignment: Alignment.center,
               margin: EdgeInsets.only(top: 20.0),
-              child: ElevatedButton(
+              child: CustomButton(
                 onPressed: () {
                   // Handle Edit Profile button press
                 },
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.teal,
-                  padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 30.0),
-                ),
-                child: Text(
-                  'Edit Profile',
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    color: Colors.white,
-                  ),
-                ),
+                text: 'Edit Profile',
+                backgroundColor: Colors.teal,
+                textColor: Colors.white,
+                padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 30.0),
               ),
             ),
           ],
