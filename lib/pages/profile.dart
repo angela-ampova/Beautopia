@@ -116,7 +116,7 @@ class ProfilePage extends StatelessWidget {
               margin: EdgeInsets.only(top: 20.0),
               child: CustomButton(
                 onPressed: () {
-                  // Handle Edit Profile button press
+                  Navigator.pushReplacementNamed(context, '/');
                 },
                 text: 'Edit Profile',
                 backgroundColor: Colors.teal,
